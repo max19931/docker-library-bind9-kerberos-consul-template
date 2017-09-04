@@ -1,0 +1,11 @@
+server {{ env "DNS_HOST" }}
+
+update delete services.{{ env "CLUSTER_DC" }}.{{ env "CLUSTER_DOMAIN" }}. A
+update add services.{{ env "CLUSTER_DC" }}.{{ env "CLUSTER_DOMAIN" }}. 600 a {{ env "HOST_IP" }}
+
+{{ range $service := services }}
+update delete {{ $service.Name }}.{{ env "CLUSTER_DC" }}.{{ env "CLUSTER_DOMAIN" }}. A
+update add {{ $service.Name }}.{{ env "CLUSTER_DC" }}.{{ env "CLUSTER_DOMAIN" }}. 600 a {{ env "HOST_IP" }}
+{{ end }}
+show
+send

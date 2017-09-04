@@ -1,0 +1,21 @@
+diff --git a/main/bind/APKBUILD b/main/bind/APKBUILD
+index a801ba7..bea09ec 100644
+--- a/main/bind/APKBUILD
++++ b/main/bind/APKBUILD
+@@ -15,7 +15,7 @@ license="MIT BSD"
+ depends=""
+ pkgusers="named"
+ pkggroups="named"
+-makedepends="bash libressl-dev libcap-dev perl linux-headers bsd-compat-headers libxml2-dev"
++makedepends="bash libressl-dev libcap-dev perl linux-headers bsd-compat-headers libxml2-dev krb5-dev"
+ install="$pkgname.pre-install"
+ subpackages="$pkgname-doc $pkgname-dev $pkgname-libs $pkgname-tools"
+ source="http://ftp.isc.org/isc/bind9/${_ver}/bind-${_ver}.tar.gz
+@@ -82,6 +82,7 @@ build() {
+ 		--with-randomdev=/dev/random \
+ 		--mandir=/usr/share/man \
+ 		--infodir=/usr/share/info \
++		--with-gssapi=/usr \
+ 		|| return 1
+
+ 	make || return 1
